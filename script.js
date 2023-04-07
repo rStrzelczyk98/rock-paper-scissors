@@ -70,7 +70,6 @@ function update(num, winner) {
   overflow();
   if (index && landscape) container.children[index].classList.add(`shadow-2`);
   if (index && !landscape) container.children[index].classList.add(`shadow-1`);
-  console.log(index);
   if (index === 0) window.navigator.vibrate([200, 100, 200, 100, 200]);
   setTimeout(() => updateScore(winner), 500);
 }
