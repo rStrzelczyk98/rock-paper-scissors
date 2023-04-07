@@ -5,7 +5,6 @@ const buttons = document.querySelector(".game-buttons");
 const buttonsBonus = document.querySelector(".game-buttons-bonus");
 const toggle = document.querySelector(".toggle");
 let userPick, computer, score;
-let bonus = false;
 
 window.addEventListener("load", loadGame);
 toggle.addEventListener("click", switchGames);
@@ -32,7 +31,7 @@ function displayResults() {
   overflow("hidden");
   hideToggle();
   const winner = toggle.classList.contains("active") ? results(5) : results(3);
-  const html = ` <div class="results ${bonus ? "bonus" : ""}">
+  const html = ` <div class="results">
         <div class=" player btn btn-${userPick} fromLeft"></div>
         <div class=" computer btn fromRight"></div>
         <div>
@@ -71,7 +70,7 @@ function update(num, winner) {
   overflow();
   if (index && landscape) container.children[index].classList.add(`shadow-2`);
   if (index && !landscape) container.children[index].classList.add(`shadow-1`);
-  if (index == 1) navigator.vibrate([200]);
+  if (index == 1) window.navigator.vibrate([200, 100, 200]);
   setTimeout(() => updateScore(winner), 500);
 }
 
@@ -126,7 +125,6 @@ function switchGames() {
   title.innerHTML = toggle.classList.toggle("active")
     ? `<span>rock</span><span>paper</span><span>scissors</span><span>lizard</span><span>spock</span>`
     : `<span>rock</span><span>paper</span><span>scissors</span>`;
-  bonus = toggle.classList.contains("active");
   buttonsBonus.classList.toggle("hidden");
   buttons.classList.toggle("hidden");
 }

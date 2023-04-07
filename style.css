@@ -165,7 +165,7 @@ body {
 .score-field p:last-of-type {
   color: var(--number-text);
   font-size: clamp(2.5rem, 5vw, 5rem);
-  line-height: clamp(2rem, 5vw, 3rem);
+  line-height: clamp(2rem, 5vw, 4rem);
   letter-spacing: 0.0625rem;
 }
 .content-grid {
@@ -275,11 +275,6 @@ body {
   border-top: 0.3125rem solid var(--inner);
   border-radius: var(--radius-3);
 }
-.bonus .btn-1::after,
-.bonus .btn-2::after,
-.bonus .btn-3::after,
-.bonus .btn-4::after,
-.bonus .btn-5::after,
 .game-buttons-bonus .btn-1::after,
 .game-buttons-bonus .btn-2::after,
 .game-buttons-bonus .btn-3::after,
