@@ -213,13 +213,13 @@ body {
 .btn-1 {
   background: var(--scissors);
   border-color: var(--outer);
-  grid-column: 1/2;
+  grid-column: 2/3;
   grid-row: 1/2;
 }
 .btn-2 {
   background: var(--paper);
   border-color: var(--outer);
-  grid-column: 2/3;
+  grid-column: 1/2;
   grid-row: 1/2;
 }
 .btn-3 {
