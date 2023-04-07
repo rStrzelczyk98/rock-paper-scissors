@@ -4,7 +4,8 @@ const main = document.querySelector(".content-grid");
 const buttons = document.querySelector(".game-buttons");
 const buttonsBonus = document.querySelector(".game-buttons-bonus");
 const toggle = document.querySelector(".toggle");
-let userPick, computer, score, bonus;
+let userPick, computer, score;
+let bonus = false;
 
 window.addEventListener("load", loadGame);
 toggle.addEventListener("click", switchGames);
@@ -31,7 +32,7 @@ function displayResults() {
   overflow("hidden");
   hideToggle();
   const winner = toggle.classList.contains("active") ? results(5) : results(3);
-  const html = ` <div class="results">
+  const html = ` <div class="results ${bonus ? "bonus" : ""}">
         <div class=" player btn btn-${userPick} fromLeft"></div>
         <div class=" computer btn fromRight"></div>
         <div>
@@ -102,15 +103,10 @@ function toggleButtons() {
 
 function loadGame() {
   document.body.classList.add("hidden");
-  bonus = JSON.parse(localStorage.getItem("bonus"))
-    ? localStorage.getItem("bonus")
-    : false;
   score = localStorage.getItem("score")
     ? JSON.parse(localStorage.getItem("score"))
     : "00";
   displayScore(score);
-  bonus ? toggle.classList.remove("active") : toggle.classList.add("active");
-  switchGames();
   document.body.classList.remove("hidden");
 }
 
@@ -130,9 +126,7 @@ function switchGames() {
   title.innerHTML = toggle.classList.toggle("active")
     ? `<span>rock</span><span>paper</span><span>scissors</span><span>lizard</span><span>spock</span>`
     : `<span>rock</span><span>paper</span><span>scissors</span>`;
-  toggle.classList.contains("active")
-    ? localStorage.setItem("bonus", true)
-    : localStorage.setItem("bonus", false);
+  bonus = toggle.classList.contains("active");
   buttonsBonus.classList.toggle("hidden");
   buttons.classList.toggle("hidden");
 }
