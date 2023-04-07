@@ -16,6 +16,9 @@
   --inner: #00000030;
   --outer: #00000060;
 
+  --shadow-1: 0 0 0 2rem #ffffff08, 0 0 0 4rem #ffffff06, 0 0 0 6rem #ffffff04;
+  --shadow-2: 0 0 0 4rem #ffffff08, 0 0 0 8rem #ffffff06, 0 0 0 12rem #ffffff04;
+
   --radius-1: 0.25rem;
   --radius-2: 0.5rem;
   --radius-3: 50%;
@@ -73,10 +76,10 @@
   animation-delay: 1.5s;
 }
 .shadow-1 {
-  box-shadow: 0 0 0 2rem #ffffff08, 0 0 0 4rem #ffffff06, 0 0 0 6rem #ffffff04;
+  box-shadow: var(--shadow-1);
 }
 .shadow-2 {
-  box-shadow: 0 0 0 4rem #ffffff08, 0 0 0 8rem #ffffff06, 0 0 0 12rem #ffffff04;
+  box-shadow: var(--shadow-2);
 }
 * {
   margin: 0;
@@ -115,6 +118,34 @@ body {
   font-size: clamp(1.125rem, 2.5vw, 2rem);
   line-height: clamp(0.875rem, 2.5vw, 1.5rem);
 }
+.toggle {
+  background-color: transparent;
+  outline: transparent;
+  border: 0.125rem solid var(--outline);
+  border-radius: 3rem;
+  padding: 0.25rem;
+  padding-inline: 0.25rem 1rem;
+  transition: padding 250ms ease;
+}
+.toggle > span {
+  display: block;
+  background-color: var(--main-text);
+  height: 1rem;
+  width: 1rem;
+  border-radius: 2rem;
+}
+.toggle:is(:hover, :focus) {
+  cursor: pointer;
+}
+.toggle.active {
+  padding-inline: 1rem 0.25rem;
+}
+.main-header:has(.toggle.active) {
+  padding-left: 0.5rem;
+}
+.main-header:has(.toggle.active) .score-field {
+  align-self: normal;
+}
 .score-field {
   background-color: var(--main-text);
   display: grid;
@@ -133,7 +164,7 @@ body {
 }
 .score-field p:last-of-type {
   color: var(--number-text);
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 5rem);
   line-height: clamp(2rem, 5vw, 3rem);
   letter-spacing: 0.0625rem;
 }
@@ -141,6 +172,8 @@ body {
   display: grid;
   grid-template-rows: 1fr auto;
   place-items: center;
+  padding: 1rem;
+  overflow-x: hidden;
 }
 .game-buttons {
   background-image: url(./images/bg-triangle.svg);
@@ -152,37 +185,80 @@ body {
   column-gap: 2rem;
   place-items: center;
 }
+.game-buttons-bonus {
+  justify-self: center;
+  background-image: url(./images/bg-pentagon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80%;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  place-items: center;
+}
 .btn {
   background-color: var(--inner);
   position: relative;
   outline: transparent;
   border: none;
-  width: clamp(8rem, 22vw, 16rem);
-  height: clamp(8rem, 22vw, 16rem);
+  border-bottom: 0.3125rem solid transparent;
+  width: clamp(6rem, 22vw, 15rem);
+  height: clamp(6rem, 22vw, 15rem);
   border-radius: var(--radius-3);
   transition: scale 250ms ease-in;
 }
 .btn-1 {
-  background: var(--paper);
-  border-bottom: 0.3125rem solid var(--outer);
+  background: var(--scissors);
+  border-color: var(--outer);
   grid-column: 1/2;
   grid-row: 1/2;
 }
 .btn-2 {
-  background: var(--scissors);
-  border-bottom: 0.3125rem solid var(--outer);
+  background: var(--paper);
+  border-color: var(--outer);
   grid-column: 2/3;
   grid-row: 1/2;
 }
 .btn-3 {
   background: var(--rock);
-  border-bottom: 0.3125rem solid var(--outer);
+  border-color: var(--outer);
   grid-column: 1/3;
+  grid-row: 2/3;
+}
+.btn-4 {
+  background: var(--lizard);
+  border-color: var(--outer);
+}
+.btn-5 {
+  background: var(--spock);
+  border-color: var(--outer);
+}
+
+.game-buttons-bonus .btn-1 {
+  grid-column: 1/10;
+}
+.game-buttons-bonus .btn-2 {
+  margin-bottom: 1.5rem;
+  grid-column: 7/10;
+  grid-row: 2/3;
+}
+.game-buttons-bonus .btn-3 {
+  grid-column: 6/9;
+  grid-row: 3/4;
+}
+.game-buttons-bonus .btn-4 {
+  grid-column: 2/5;
+  grid-row: 3/4;
+}
+.game-buttons-bonus .btn-5 {
+  margin-bottom: 1.5rem;
+  grid-column: 1/4;
   grid-row: 2/3;
 }
 .btn-1::after,
 .btn-2::after,
-.btn-3::after {
+.btn-3::after,
+.btn-4::after,
+.btn-5::after {
   display: block;
   box-sizing: border-box;
   position: absolute;
@@ -190,30 +266,37 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   content: "";
-  width: clamp(6rem, 17vw, 12rem);
-  height: clamp(6rem, 17vw, 12rem);
+  width: clamp(4.5rem, 17vw, 12rem);
+  height: clamp(4.5rem, 17vw, 12rem);
   border-top: 0.3125rem solid var(--inner);
   border-radius: var(--radius-3);
 }
 .btn-1::after {
-  background: var(--main-text) url(./images/icon-paper.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 3rem;
+  background: var(--main-text) url(./images/icon-scissors.svg);
 }
 .btn-2::after {
-  background: var(--main-text) url(./images/icon-scissors.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 3rem;
+  background: var(--main-text) url(./images/icon-paper.svg);
 }
 .btn-3::after {
   background: var(--main-text) url(./images/icon-rock.svg);
+}
+.btn-4::after {
+  background: var(--main-text) url(./images/icon-lizard.svg);
+}
+.btn-5::after {
+  background: var(--main-text) url(./images/icon-spock.svg);
+}
+.btn-1::after,
+.btn-2::after,
+.btn-3::after,
+.btn-4::after,
+.btn-5::after {
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 3rem;
+  background-size: 2rem;
 }
-.game-buttons .btn:is(:hover, :focus) {
+.game-buttons .btn:is(:hover, :focus),
+.game-buttons-bonus .btn:is(:hover, :focus) {
   cursor: pointer;
   scale: 1.1;
 }
@@ -273,7 +356,8 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   padding: 1rem;
   z-index: 2;
 }
@@ -289,6 +373,11 @@ body {
   top: 0;
   left: 0;
   background: var(--main-text) url(./images/image-rules.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.rules.active {
+  background: var(--main-text) url(./images/image-rules-bonus.svg);
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -318,8 +407,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-  justify-content: space-around;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 .results p {
   color: var(--main-text);
@@ -327,8 +415,30 @@ body {
   font-size: 3rem;
   text-align: center;
 }
-.results > :first-child {
+.player,
+.computer {
+  position: relative;
   transition: box-shadow 250ms ease-in;
+}
+.player::before,
+.computer::before {
+  color: var(--main-text);
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  letter-spacing: 0.125rem;
+  display: block;
+  width: max-content;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -2rem;
+}
+.player::before {
+  content: "you picked";
+}
+.computer::before {
+  content: "the house picked";
 }
 
 .results :last-child {
@@ -364,7 +474,7 @@ body {
     flex-wrap: nowrap;
     align-items: center;
   }
-  .results :nth-child(2) {
+  .computer {
     order: 4;
   }
   .results :last-child {
@@ -393,5 +503,26 @@ body {
   }
   .rules h2 {
     padding: 0;
+  }
+  .player::before,
+  .computer::before {
+    font-size: 1.25rem;
+    top: -2rem;
+    bottom: auto;
+  }
+}
+@media screen and (min-width: 600px) {
+  .btn-1::after,
+  .btn-2::after,
+  .btn-3::after,
+  .btn-4::after,
+  .btn-5::after {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 3rem;
+  }
+  .game-buttons-bonus .btn-2,
+  .game-buttons-bonus .btn-5 {
+    margin-bottom: 3rem;
   }
 }

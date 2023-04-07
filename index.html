@@ -13,9 +13,12 @@
     <script defer src="script.js"></script>
     <title>Frontend Mentor | Rock, Paper, Scissors</title>
   </head>
-  <body>
+  <body class="hidden">
     <header class="main-header">
       <h1><span>rock</span><span>paper</span><span>scissors</span></h1>
+      <button class="toggle" aria-label="switch game mode">
+        <span></span>
+      </button>
       <div class="score-field">
         <p>score</p>
         <p id="score"></p>
@@ -23,9 +26,16 @@
     </header>
     <main class="content-grid">
       <div class="game-buttons">
-        <button class="btn btn-1" data-value="1" aria-label="paper"></button>
-        <button class="btn btn-2" data-value="2" aria-label="scissors"></button>
+        <button class="btn btn-1" data-value="1" aria-label="scissors"></button>
+        <button class="btn btn-2" data-value="2" aria-label="paper"></button>
         <button class="btn btn-3" data-value="3" aria-label="rock"></button>
+      </div>
+      <div class="game-buttons-bonus hidden">
+        <button class="btn btn-1" data-value="1" aria-label="scissors"></button>
+        <button class="btn btn-2" data-value="2" aria-label="paper"></button>
+        <button class="btn btn-3" data-value="3" aria-label="rock"></button>
+        <button class="btn btn-4" data-value="4" aria-label="lizard"></button>
+        <button class="btn btn-5" data-value="5" aria-label="spock"></button>
       </div>
       <button class="btn-rules">rules</button>
     </main>
