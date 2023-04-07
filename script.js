@@ -103,8 +103,8 @@ function toggleButtons() {
 
 function loadGame() {
   document.body.classList.add("hidden");
-  score = localStorage.getItem("score")
-    ? JSON.parse(localStorage.getItem("score"))
+  score = sessionStorage.getItem("score")
+    ? JSON.parse(sessionStorage.getItem("score"))
     : "00";
   displayScore(score);
   document.body.classList.remove("hidden");
@@ -117,7 +117,7 @@ function displayScore(value) {
 function updateScore(value) {
   if (value == "You Win") score++;
   if (value == "You Lose" && score > 0) score--;
-  localStorage.setItem("score", score);
+  sessionStorage.setItem("score", score);
   displayScore(score);
 }
 
